@@ -1,0 +1,126 @@
+﻿@model Models.Playground
+
+@{
+    ViewData["Title"] = "Details";
+    var times = (List<PlaygroundTimes>)ViewData["PlaygroundTimes"];
+}
+<link href="~/assets/css/ratings.css" rel="stylesheet" />
+
+<h1>Details</h1>
+
+<div class="container">
+    <h4>Playground</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.City)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StadiumArea)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StadiumArea)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AmPrice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AmPrice)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PmPrice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PmPrice)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Services)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Services)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Rate)
+        </dt>
+        <dd class="col-sm-10">
+            @{
+            var size =$"{Model.Rate / 5 * 100}%";
+
+            <div class="star-ratings">
+
+                <div class="fill-ratings" style="width:@size">
+                    <span>★★★★★</span>
+                </div>
+                <div class="empty-ratings">
+                    <span>★★★★★</span>
+                </div>
+            </div>
+            }
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PlaygroundStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PlaygroundStatus)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsOffered)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsOffered)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CreatedOn)
+        </dd>
+    </dl>
+</div>
+
+<section class="container">
+    @{
+
+        <table>
+            <h3>Working hours</h3>
+            <tr>
+                <th>From</th>
+                <th>To</th>
+            </tr>
+            @foreach (var playgroundTimes in times)
+            {
+
+                var from = (@playgroundTimes.From).ToString("HH:mm");
+                var to = (@playgroundTimes.To).ToString("HH:mm");
+                <tr>
+                    <td><input type="time" value="@from" /></td>
+                    <td><input type="time" value="@to" /></td>
+                </tr>
+            }
+        </table>
+    }
+</section>
+<br />
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.PlaygroundId">Edit</a> |
+    <a asp-action="Index">Back to home</a>
+</div>
+
+<script src="~/assets/js/core/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var star_rating_width = $('.fill-ratings span').width();
+        $('.star-ratings').width(star_rating_width);
+    });
+
+</script>
